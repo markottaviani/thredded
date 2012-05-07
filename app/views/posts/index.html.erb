@@ -1,3 +1,5 @@
+<% topic = TopicPresenter.new(@topic) -%>
+
 <% content_for :page_id do %>topics_posts<% end %>
 <% content_for :page_title do %><%= site.title %> | <%= topic.title %> | Posts<% end %>
 <% content_for :header_nav do %>

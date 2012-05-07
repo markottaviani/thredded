@@ -62,21 +62,6 @@ class Topic < ActiveRecord::Base
     self.class.to_s == "PrivateTopic"
   end
 
-  def css_class
-    classes = []
-    classes << "locked" if locked
-    classes << "sticky" if sticky
-    if classes.empty?
-      ""
-    else
-      "class=\"#{classes.join(' ')}\"".html_safe
-    end
-  end
-
-  def users_to_sentence
-    @users_to_sentence ||= self.users.collect{ |u| u.name.capitalize }.to_sentence if self.class == "PrivateTopic" && self.users
-  end
-
   def self.inherited(child)
     child.instance_eval do
       def model_name

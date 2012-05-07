@@ -1,7 +1,7 @@
 class TopicsController < ApplicationController
-  before_filter :pad_params,  :only => [:create, :update]
-  before_filter :pad_post,    :only => :create
-  before_filter :pad_topic,   :only => :create
+  before_filter :pad_params,  only: [:create, :update]
+  before_filter :pad_post,    only: :create
+  before_filter :pad_topic,   only: :create
 
   def index
     unless site.present? and can? :read, messageboard
@@ -31,7 +31,7 @@ class TopicsController < ApplicationController
   def edit
     authorize! :update, topic
   end
- 
+
   def update
     topic.update_attributes(params[:topic])
     redirect_to messageboard_topic_posts_path(messageboard, topic)
@@ -66,7 +66,6 @@ class TopicsController < ApplicationController
     root_url(:host => site.cached_domain)
   end
 
-
   def klass
     @klass ||= params[:topic][:type].present? ? params[:topic][:type].constantize : Topic
   end
@@ -87,5 +86,4 @@ class TopicsController < ApplicationController
     params[:topic][:posts_attributes]["0"][:ip] = request.remote_ip
     params[:topic][:posts_attributes]["0"][:user] = current_user
   end
-
 end

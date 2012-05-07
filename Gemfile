@@ -33,7 +33,7 @@ gem 'coderay'                     , '~> 1.0.6'
 # in production environments by default.
 group :assets do
   gem 'jquery-rails'
-  gem 'sass-rails', "3.1.0"
+  gem 'sass-rails', '3.1.0'
   gem 'uglifier'
   gem 'compass'
   gem 'therubyracer'
@@ -56,14 +56,14 @@ group :test, :cucumber do
   gem 'growl'               , '1.0.3'
   gem 'rb-fsevent'
   gem 'guard-spork'         , '0.2.1'
-  gem "addressable"         , "2.2.6"
+  gem 'addressable'         , '2.2.6'
   gem 'launchy'             , '2.0.5'
   gem 'fuubar'
 end
 
 group :development do
   gem 'git_remote_branch'
-  gem 'debugger'
+  gem 'debugger'            , '~> 1.1.3'
   gem 'guard-livereload'
   gem 'faker'
   gem 'heroku'

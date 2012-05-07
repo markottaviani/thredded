@@ -1,6 +1,5 @@
-  <% t = TopicPresenter.new(t) %>
-
   <% if can? :read, t -%>
+    <% t = TopicPresenter.new(t) %>
     <% cache ['line_item', t] do %>
       <article <%= t.css_class %>>
         <h1><%= link_to t.title, messageboard_topic_posts_path(messageboard, t) %></h1>
