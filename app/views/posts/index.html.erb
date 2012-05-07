@@ -25,9 +25,7 @@
   <% cache ["posts", "header", topic] do %>
     <h1><%= topic.title %></h1> 
     <h2><%= topic.posts_count %> posts</h2>
-    <% if topic.users_to_sentence %>
-      <cite><%= topic.users_to_sentence %></cite>
-    <% end %>
+    <%= topic.users_to_sentence %>
   <% end %>
 </header>
 

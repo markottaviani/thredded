@@ -1,3 +1,5 @@
+  <% t = TopicPresenter.new(t) %>
+
   <% if can? :read, t -%>
     <% cache ['line_item', t] do %>
       <article <%= t.css_class %>>

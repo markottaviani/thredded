@@ -1,7 +1,11 @@
-class TopicPresenter < SimpleDelegator
+class TopicPresenter
   def initialize(topic)
     @topic = topic
   end
+
+  attr_reader :topic
+  delegate :created_at, :last_user, :locked, :sticky, :posts, :posts_count, 
+    :title, :updated_at, :to_param, :user, :user_name, to: :topic
 
   def css_class
     @classes = []
@@ -16,7 +20,9 @@ class TopicPresenter < SimpleDelegator
 
   def users_to_sentence
     if @topic.class == 'PrivateTopic' && @topic.users
-      @users_to_sentence = @topic.users.collect { |u| u.name.capitalize }.to_sentence
+      content_tag :cite do
+        @users_to_sentence = @topic.users.collect { |u| u.name.capitalize }.to_sentence
+      end
     else
       ''
     end
