@@ -1,26 +1,29 @@
 class User < ActiveRecord::Base
   include ActiveModel::Dirty
 
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+    :trackable, :validatable, :token_authenticatable
 
-  # has_and_belongs_to_many :messageboards
   has_many :sites
   has_many :roles
-  has_many :messageboards, :through => :roles
+  has_many :messageboards, through: :roles
   has_many :topics
   has_many :posts
   has_many :private_users
-  has_many :private_topics, :through => :private_users
+  has_many :private_topics, through: :private_users
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :time_zone, :roles_attributes
-  accepts_nested_attributes_for :roles, :allow_destroy => true
+  attr_accessible :email, :name, :password, :password_confirmation, 
+    :remember_me, :roles_attributes, :time_zone
 
-  # validates_numericality_of :posts_count, :topics_count
-  validates :name, :presence => true, :uniqueness => true, :format => { :with => /\A[a-zA-Z0-9]+\z/, :message => "only letters or numbers allowed" }
-  validates :email, :presence => true, :length => {:minimum => 3, :maximum => 254}, :uniqueness => true, :format => {:with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => "invalid email address"}
+  accepts_nested_attributes_for :roles, allow_destroy: true
+
+  validates :name, presence: true, uniqueness: true, 
+    format: { with: /\A[a-zA-Z0-9]+\z/, message: 'only letters or numbers allowed' }
+
+  validates :email, presence: true, length: { minimum: 3, maximum: 254 }, 
+    uniqueness: true, format: { 
+    with: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, 
+    message: 'invalid email address' }
 
   after_save :update_posts
 
@@ -69,10 +72,10 @@ class User < ActiveRecord::Base
 
   private
 
-    def update_posts
-      if self.email_changed?
-        Post.update_all(["user_email = ?", self.email], ["user_email = ?", self.email_was])
-      end
+  def update_posts
+    if self.email_changed?
+      Post.update_all(["user_email = ?", self.email], 
+        ["user_email = ?", self.email_was])
     end
-
+  end
 end

@@ -1,16 +1,16 @@
 <p class="title">
   <%= f.label :title %>
-  <%= f.text_field :title, { :placeholder => 'Title', :tabindex => 1 } %>
+  <%= f.text_field :title, { placeholder: 'Title', tabindex: 1 } %>
 </p>
 
-<% if params[:type] == "private" -%>
+<% if params[:type] == 'private' -%>
   <%= f.hidden_field :type %>
   <p class="private_users">
-    <%= f.select(:user_id, messageboard.users.collect{|u| [u.name, u.id]}, {}, { :multiple => true, 'data-placeholder' => 'select users to participate in this topic' }) %>
+    <%= f.select( :user_id, messageboard.users.collect{|u| [u.name, u.id]}, {}, { multiple: true, data: { placeholder:'select users to participate in this topic' } } ) %>
   </p>
 <% end -%>
 
-<% if current_user && current_user.admins?(messageboard) -%>
+<% if current_user.try(:admins?, messageboard) -%>
   <div id="drawer">
     <div id="attributes">
       <p class="locked">
