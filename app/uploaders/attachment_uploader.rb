@@ -2,7 +2,7 @@ require 'carrierwave/processing/mini_magick'
 
 class AttachmentUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
-  storage :file
+  storage :fog
 
   def store_dir
     "uploads/#{mounted_as}/#{model.id}"
